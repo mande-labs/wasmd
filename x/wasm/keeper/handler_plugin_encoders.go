@@ -162,18 +162,6 @@ func EncodeStakingMsg(sender sdk.AccAddress, msg *wasmvmtypes.StakingMsg) ([]sdk
 		}
 		return []sdk.Msg{&sdkMsg}, nil
 
-	case msg.Redelegate != nil:
-		coin, err := ConvertWasmCoinToSdkCoin(msg.Redelegate.Amount)
-		if err != nil {
-			return nil, err
-		}
-		sdkMsg := stakingtypes.MsgBeginRedelegate{
-			DelegatorAddress:    sender.String(),
-			ValidatorSrcAddress: msg.Redelegate.SrcValidator,
-			ValidatorDstAddress: msg.Redelegate.DstValidator,
-			Amount:              coin,
-		}
-		return []sdk.Msg{&sdkMsg}, nil
 	case msg.Undelegate != nil:
 		coin, err := ConvertWasmCoinToSdkCoin(msg.Undelegate.Amount)
 		if err != nil {

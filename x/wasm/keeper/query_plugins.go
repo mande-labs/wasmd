@@ -411,9 +411,6 @@ func sdkToFullDelegation(ctx sdk.Context, keeper types.StakingKeeper, distKeeper
 	// otherwise, it can redelegate the full amount
 	// (there are cases of partial funds redelegated, but this is a start)
 	redelegateCoins := wasmvmtypes.NewCoin(0, bondDenom)
-	if !keeper.HasReceivingRedelegation(ctx, delAddr, valAddr) {
-		redelegateCoins = delegationCoins
-	}
 
 	// FIXME: make a cleaner way to do this (modify the sdk)
 	// we need the info from `distKeeper.calculateDelegationRewards()`, but it is not public
